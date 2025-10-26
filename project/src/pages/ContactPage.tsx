@@ -16,7 +16,7 @@ export default function ContactPage() {
       title: 'Email',
       description: 'Send us an email',
       action: 'Email Us',
-      link: 'mailto:info@sparksoul.com',
+      link: 'mailto:Sparksoul156@gmail.com',
       color: '#d4af37'
     },
     {
@@ -113,12 +113,12 @@ export default function ContactPage() {
             Contact Us via Google Form
           </h3>
           <p className="text-gray-600 mb-8">
-            Please fill out our inquiry form and we’ll get back to you soon. 
+            Please fill out our inquiry form and we’ll get back to you soon.
             For collaborations or custom requests, you can also message us on Instagram.
           </p>
 
           <motion.a
-            href="https://docs.google.com/forms/d/e/1FAIpQLSdgQd_q9ad7VCwqtVDWjmuTtATKyc9WJ6Sf01WAwICc6d1Osw/viewform?usp=dialog"
+            href="https://docs.google.com/forms/d/e/1FAIpQLSfUeywNNfn5m7wmEisZnwXeR7DKhxlZROSn6VJ2wnadGg-llw/viewform?usp=publish-editor"
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ scale: 1.05, y: -3 }}

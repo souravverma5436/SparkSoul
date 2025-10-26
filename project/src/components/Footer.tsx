@@ -13,11 +13,21 @@ export default function Footer() {
     },
     {
       icon: Mail,
-      href: '/#contact', // scrolls to contact section
+      href: '/#contact',
       label: 'Contact',
       color: '#d4af37'
     }
   ];
+
+  // Smooth scroll function
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id.toLowerCase().replace(' ', ''));
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const quickLinks = ['About', 'Products', 'Gallery', 'Contact'];
 
   return (
     <footer className="bg-gradient-to-br from-[#f5f5dc] via-white to-[#f4c2c2]/20 pt-16 pb-8">
@@ -51,9 +61,12 @@ export default function Footer() {
           >
             <h4 className="font-serif text-lg font-semibold text-gray-800 mb-4">Quick Links</h4>
             <ul className="space-y-2">
-              {['About Us', 'Products', 'Gallery', 'Contact'].map((item) => (
+              {quickLinks.map((item) => (
                 <li key={item}>
-                  <button className="text-gray-600 hover:text-[#d4af37] transition-colors text-sm">
+                  <button
+                    onClick={() => scrollToSection(item)}
+                    className="text-gray-600 hover:text-[#d4af37] transition-colors text-sm"
+                  >
                     {item}
                   </button>
                 </li>
