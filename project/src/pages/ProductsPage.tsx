@@ -18,7 +18,7 @@ export default function ProductsPage() {
       category: 'Accessory',
       description:
         'Add a vibrant, effortless touch of summer charm with this bold pink flower hair accessory.',
-      image: 'src/images/Pink Flower Hair Accessory.jpeg',
+      image: '/Pink Flower Hair Accessory.jpeg',
     },
     {
       id: 2,
@@ -26,7 +26,7 @@ export default function ProductsPage() {
       category: 'Bracelets',
       description:
         'A wrist is gracefully adorned with two beaded bracelets of clear and lavender crackle crystal, one featuring a purple butterfly charm.',
-      image: 'src/images/bracelet.jpeg',
+      image: '/bracelet.jpeg',
     },
     {
       id: 3,
@@ -41,21 +41,21 @@ export default function ProductsPage() {
       name: 'Celebration Hamper',
       category: 'Customized Hampers',
       description: 'Perfect for special occasions and celebrations',
-      image: 'src/images/celebration hamper.png',
+      image: '/celebration hamper.png',
     },
     {
       id: 5,
       name: 'Heart-shaped Pink Gemstone Silver Ring',
       category: 'Rings',
       description: 'Delicate silver ring with a heart-shaped pink gemstone',
-      image: 'src/images/Silver Ring.jpeg',
+      image: '/Silver Ring.jpeg',
     },
     {
       id: 6,
       name: 'Gold Chain Bracelet',
       category: 'Bracelets',
       description: 'Elegant gold-plated evil eye chain bracelet',
-      image: 'src/images/evil eye bracelet.jpeg',
+      image: '/evil eye bracelet.jpeg',
     },
     {
       id: 7,
@@ -63,7 +63,7 @@ export default function ProductsPage() {
       category: 'Accessories',
       description:
         'A miniature lip gloss container shaped like a small pink milkshake, filled with clear gloss and pink glitter.',
-      image: 'src/images/lip gloss.jpeg',
+      image: '/lip gloss.jpeg',
     },
     {
       id: 8,
@@ -71,7 +71,7 @@ export default function ProductsPage() {
       category: 'Accessories',
       description:
         'Brown hair clip with a tortoiseshell pattern, featuring a classic claw design for secure hold.',
-      image: 'src/images/brown hair clip.jpeg',
+      image: '/brown hair clip.jpeg',
     },
   ];
 

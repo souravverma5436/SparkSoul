@@ -58,7 +58,7 @@ export default function AboutPage() {
                 transition={{ duration: 5, repeat: Infinity }}
               />
               <img
-                src="src/images/green-buta-shaped-stone-jewelry.jpg"
+                src=" /green-buta-shaped-stone-jewelry.jpg"
                 alt="Handmade jewelry"
                 className="relative rounded-2xl shadow-2xl w-full h-[500px] object-cover"
               />
