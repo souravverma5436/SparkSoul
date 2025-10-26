@@ -15,43 +15,43 @@ export default function GalleryPage() {
   const galleryImages: GalleryImage[] = [
     {
       id: 1,
-      url: 'src/images/bracelet.jpeg',
+      url: '/bracelet.jpeg',
       title: 'Bracelet with Butterfly Charm',
       category: 'Accessories'
     },
     {
       id: 2,
-      url: 'src/images/brown hair clip.jpeg',
+      url: '/brown hair clip.jpeg',
       title: 'Brown Hair Clip',
       category: 'Accessories'
     },
     {
       id: 3,
-      url: 'src/images/celebration hamper.png',
+      url: '/celebration hamper.png',
       title: 'Celebration Hamper',
       category: 'Hampers'
     },
     {
       id: 4,
-      url: 'src/images/evil eye bracelet.jpeg',
+      url: '/evil eye bracelet.jpeg',
       title: 'Evil Eye Bracelet',
       category: 'Bracelets'
     },
     {
       id: 5,
-      url: 'src/images/lip gloss.jpeg',
+      url: '/lip gloss.jpeg',
       title: 'Lip Gloss',
       category: 'Accessories'
     },
     {
       id: 6,
-      url: 'src/images/Pink Flower Hair Accessory.jpeg',
+      url: '/Pink Flower Hair Accessory.jpeg',
       title: 'Pink Flower Hair Accessory',
       category: 'Accessories'
     },
     {
       id: 7,
-      url: 'src/images/Silver Ring.jpeg',
+      url: '/Silver Ring.jpeg',
       title: 'Silver Ring',
       category: 'Accessories'
     },
