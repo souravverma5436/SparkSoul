@@ -110,20 +110,14 @@ export default function Footer() {
           viewport={{ once: true }}
           className="border-t border-gray-200 pt-8 text-center"
         >
-          <p className="text-sm text-gray-600 flex items-center justify-center mb-2">
-            © {currentYear} Sv_desizns. All rights reserved.
-          </p>
-          <p className="text-sm text-gray-600 flex items-center justify-center">
-            Designed By{' '}
-            <a
-              href="https://svermaportfolio.netlify.app/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="ml-1 text-[#d4af37] hover:text-[#f4c2c2] transition-colors font-medium underline"
-            >
-              Sourav Verma
-            </a>
-          </p>
+          <a
+            href="https://svermaportfolio.netlify.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm text-gray-600 hover:text-[#d4af37] transition-colors inline-block"
+          >
+            © {currentYear} Sv_desizns. All rights reserved. Designed By Sourav Verma
+          </a>
         </motion.div>
       </div>
     </footer>
