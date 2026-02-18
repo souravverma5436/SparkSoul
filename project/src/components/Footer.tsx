@@ -110,9 +110,19 @@ export default function Footer() {
           viewport={{ once: true }}
           className="border-t border-gray-200 pt-8 text-center"
         >
+          <p className="text-sm text-gray-600 flex items-center justify-center mb-2">
+            © {currentYear} Sv_desizns. All rights reserved.
+          </p>
           <p className="text-sm text-gray-600 flex items-center justify-center">
-            © {currentYear} Spark Soul. Made with{' '}
-            <Heart className="w-4 h-4 mx-1 text-[#f4c2c2] fill-current" /> for you
+            Designed By{' '}
+            <a
+              href="https://svermaportfolio.netlify.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ml-1 text-[#d4af37] hover:text-[#f4c2c2] transition-colors font-medium underline"
+            >
+              Sourav Verma
+            </a>
           </p>
         </motion.div>
       </div>
