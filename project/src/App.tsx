@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import BackToTop from './components/BackToTop';
+import FloatingRing from './components/FloatingRing';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import ProductsPage from './pages/ProductsPage';
@@ -112,6 +113,7 @@ function App() {
           transition={{ duration: 0.6 }}
         >
           <Navbar activeSection={activeSection} onNavigate={handleNavigate} />
+          <FloatingRing />
           <main>
             <HomePage onNavigate={handleNavigate} />
             <AboutPage />
