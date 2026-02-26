@@ -162,12 +162,6 @@ export default function ProductsPage() {
           <p className="text-[#5a5a5a] text-base max-w-2xl mx-auto">
             Discover our collection of handcrafted jewelry and personalized gifts
           </p>
-          
-          {/* Spotlight Anchor - Safe position top right */}
-          <div 
-            className="spotlight-anchor absolute right-8 sm:right-16 top-32 w-1 h-1 pointer-events-none" 
-            data-spotlight="products"
-          />
         </div>
 
         <div

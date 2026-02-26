@@ -78,12 +78,6 @@ export default function HomePage({ onNavigate }: HomePageProps) {
         </div>
       </div>
 
-      {/* Spotlight Anchor - Safe position on right side */}
-      <div 
-        className="spotlight-anchor absolute right-8 sm:right-16 lg:right-24 top-1/2 -translate-y-1/2 w-1 h-1 pointer-events-none z-0" 
-        data-spotlight="home"
-      />
-
       {/* Scroll Indicator */}
       <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 z-10">
         <div className="flex flex-col items-center gap-2 cursor-pointer animate-bounce">
