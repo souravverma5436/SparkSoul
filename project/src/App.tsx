@@ -12,13 +12,28 @@ import ContactPage from './pages/ContactPage';
 function App() {
   const [activeSection, setActiveSection] = useState('home');
   const [isLoading, setIsLoading] = useState(true);
+  const [loadingProgress, setLoadingProgress] = useState(0);
 
   useEffect(() => {
+    // Simulate loading progress
+    const progressInterval = setInterval(() => {
+      setLoadingProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(progressInterval);
+          return 100;
+        }
+        return prev + 2;
+      });
+    }, 30);
+
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 1500);
+    }, 3500);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      clearInterval(progressInterval);
+    };
   }, []);
 
   const handleNavigate = (section: string) => {
@@ -64,43 +79,199 @@ function App() {
           <motion.div
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.6, ease: 'easeInOut' }}
-            className="fixed inset-0 bg-[#faf9f7] z-50 flex items-center justify-center"
+            transition={{ duration: 0.8, ease: 'easeInOut' }}
+            className="fixed inset-0 bg-gradient-to-br from-[#2d2d2d] via-[#1a1a1a] to-black z-50 flex items-center justify-center overflow-hidden"
           >
-            <div className="text-center">
+            {/* Animated Background Pattern */}
+            <div className="absolute inset-0 opacity-10">
               <motion.div
+                className="absolute inset-0"
+                style={{
+                  backgroundImage: `linear-gradient(rgba(201, 169, 97, 0.3) 1px, transparent 1px),
+                                   linear-gradient(90deg, rgba(201, 169, 97, 0.3) 1px, transparent 1px)`,
+                  backgroundSize: '60px 60px',
+                }}
                 animate={{
-                  scale: [1, 1.1, 1],
-                  opacity: [0.5, 1, 0.5],
+                  backgroundPosition: ['0px 0px', '60px 60px'],
                 }}
                 transition={{
-                  duration: 1.5,
+                  duration: 3,
                   repeat: Infinity,
-                  ease: 'easeInOut',
+                  ease: 'linear',
                 }}
-                className="mb-6"
+              />
+            </div>
+
+            {/* Floating Sparkles */}
+            <div className="absolute inset-0 pointer-events-none">
+              {[...Array(12)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute w-1 h-1 bg-[#c9a961] rounded-full"
+                  style={{
+                    left: `${Math.random() * 100}%`,
+                    top: `${Math.random() * 100}%`,
+                    boxShadow: '0 0 10px rgba(201, 169, 97, 0.8)',
+                  }}
+                  animate={{
+                    opacity: [0, 1, 0],
+                    scale: [0, 1.5, 0],
+                  }}
+                  transition={{
+                    duration: 2 + Math.random() * 2,
+                    repeat: Infinity,
+                    delay: Math.random() * 3,
+                  }}
+                />
+              ))}
+            </div>
+
+            <div className="text-center relative z-10 px-6 max-w-2xl">
+              {/* Logo/Icon with Elegant Animation */}
+              <motion.div
+                initial={{ scale: 0, rotate: -180 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ duration: 1, ease: 'easeOut' }}
+                className="mb-8"
               >
-                <svg
-                  className="w-16 h-16 mx-auto"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
+                <motion.div
+                  animate={{
+                    rotate: [0, 360],
+                  }}
+                  transition={{
+                    duration: 20,
+                    repeat: Infinity,
+                    ease: 'linear',
+                  }}
                 >
-                  <path
-                    d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
-                    fill="#c9a961"
+                  <svg
+                    className="w-24 h-24 mx-auto"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <motion.path
+                      d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
+                      fill="#c9a961"
+                      initial={{ pathLength: 0 }}
+                      animate={{ pathLength: 1 }}
+                      transition={{ duration: 2, ease: 'easeInOut' }}
+                    />
+                  </svg>
+                </motion.div>
+              </motion.div>
+
+              {/* Brand Name with Stagger Animation */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.5 }}
+                className="mb-4"
+              >
+                <h1 
+                  className="font-serif text-6xl sm:text-7xl font-bold text-[#c9a961] mb-2"
+                  style={{
+                    textShadow: '0 0 40px rgba(201, 169, 97, 0.5), 0 4px 20px rgba(0, 0, 0, 0.8)',
+                  }}
+                >
+                  Spark Soul
+                </h1>
+              </motion.div>
+
+              {/* Tagline */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, delay: 1 }}
+                className="mb-8"
+              >
+                <p className="text-white/80 text-lg sm:text-xl font-light tracking-[0.3em] uppercase mb-2">
+                  Handcrafted Elegance
+                </p>
+                <div className="flex items-center justify-center gap-3 text-white/60 text-sm">
+                  <span>✨ Jewelry</span>
+                  <span className="w-1 h-1 bg-[#c9a961] rounded-full"></span>
+                  <span>🎁 Hampers</span>
+                  <span className="w-1 h-1 bg-[#c9a961] rounded-full"></span>
+                  <span>💎 Custom Gifts</span>
+                </div>
+              </motion.div>
+
+              {/* Decorative Line */}
+              <motion.div
+                initial={{ width: 0 }}
+                animate={{ width: '100%' }}
+                transition={{ duration: 1.5, delay: 1.3 }}
+                className="h-px bg-gradient-to-r from-transparent via-[#c9a961] to-transparent mb-8 mx-auto max-w-md"
+              />
+
+              {/* Loading Progress Bar */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1.5 }}
+                className="mb-4"
+              >
+                <div className="relative w-64 h-1 bg-white/10 rounded-full mx-auto overflow-hidden">
+                  <motion.div
+                    className="absolute inset-y-0 left-0 bg-gradient-to-r from-[#c9a961] to-[#d4b76e] rounded-full"
+                    style={{ width: `${loadingProgress}%` }}
+                    transition={{ duration: 0.3 }}
                   />
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                    animate={{
+                      x: ['-100%', '200%'],
+                    }}
+                    transition={{
+                      duration: 1.5,
+                      repeat: Infinity,
+                      ease: 'linear',
+                    }}
+                  />
+                </div>
+              </motion.div>
+
+              {/* Loading Text */}
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1.8 }}
+                className="text-white/50 text-sm font-light tracking-wider"
+              >
+                Preparing your experience...
+              </motion.p>
+
+              {/* Subtitle Quote */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 2.2 }}
+                className="mt-12"
+              >
+                <p className="text-white/40 text-sm italic font-light">
+                  "Where every piece tells a story"
+                </p>
+              </motion.div>
+            </div>
+
+            {/* Bottom Decorative Element */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 2.5 }}
+              className="absolute bottom-12 left-1/2 transform -translate-x-1/2"
+            >
+              <motion.div
+                animate={{ y: [0, 10, 0] }}
+                transition={{ duration: 2, repeat: Infinity }}
+                className="text-[#c9a961]/50"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
                 </svg>
               </motion.div>
-              <motion.h1
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                className="font-serif text-3xl font-semibold text-[#2d2d2d]"
-              >
-                Spark Soul
-              </motion.h1>
-            </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
