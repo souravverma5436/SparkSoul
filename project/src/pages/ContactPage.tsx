@@ -1,7 +1,15 @@
-import { motion } from 'framer-motion';
+import { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Instagram, Mail, Send, Sparkles, Clock, Globe } from 'lucide-react';
 
+gsap.registerPlugin(ScrollTrigger);
+
 export default function ContactPage() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const cardsRef = useRef<HTMLDivElement>(null);
+  const formRef = useRef<HTMLDivElement>(null);
+
   const contactMethods = [
     {
       icon: Instagram,
@@ -21,27 +29,53 @@ export default function ContactPage() {
     }
   ];
 
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    const ctx = gsap.context(() => {
+      // Contact cards stagger
+      gsap.from(cardsRef.current?.children || [], {
+        scrollTrigger: {
+          trigger: cardsRef.current,
+          start: 'top 80%',
+          end: 'top 60%',
+          scrub: 1,
+        },
+        y: 40,
+        opacity: 0,
+        stagger: 0.15,
+        ease: 'power2.out'
+      });
+
+      // Form CTA reveal
+      gsap.from(formRef.current, {
+        scrollTrigger: {
+          trigger: formRef.current,
+          start: 'top 80%',
+          end: 'top 60%',
+          scrub: 1,
+        },
+        y: 50,
+        opacity: 0,
+        ease: 'power2.out'
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section
       id="contact"
+      ref={sectionRef}
       className="py-24 bg-white"
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-20"
-        >
-          <motion.div
-            initial={{ scale: 0 }}
-            whileInView={{ scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ type: 'spring', stiffness: 200, damping: 20 }}
-          >
-            <Sparkles className="w-10 h-10 text-[#c9a961] mx-auto mb-6" strokeWidth={1.5} />
-          </motion.div>
+        <div className="text-center mb-20">
+          <div className="mb-6">
+            <Sparkles className="w-10 h-10 text-[#c9a961] mx-auto" strokeWidth={1.5} />
+          </div>
           <h2 className="font-serif text-4xl sm:text-5xl font-semibold text-[#2d2d2d] mb-4">
             Get in Touch
           </h2>
@@ -49,53 +83,42 @@ export default function ContactPage() {
           <p className="text-[#5a5a5a] text-base max-w-2xl mx-auto">
             Have a question or want to place a custom order? We'd love to hear from you
           </p>
-        </motion.div>
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16 max-w-3xl mx-auto">
-          {contactMethods.map((method, index) => (
-            <motion.a
+        <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16 max-w-3xl mx-auto">
+          {contactMethods.map((method) => (
+            <a
               key={method.title}
               href={method.link}
               target={method.link.startsWith('mailto') ? '_self' : '_blank'}
               rel="noopener noreferrer"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-100px' }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ y: -6, scale: 1.01 }}
               className="group"
             >
-              <div className="bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-500 border border-gray-100 text-center h-full flex flex-col justify-center">
-                <motion.div
-                  whileHover={{ rotate: 360, scale: 1.1 }}
-                  transition={{ duration: 0.6 }}
-                  className="w-14 h-14 rounded-full flex items-center justify-center mb-6 mx-auto"
+              <div className="bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-500 border border-gray-100 text-center h-full flex flex-col justify-center hover:-translate-y-2">
+                <div
+                  className="w-14 h-14 rounded-full flex items-center justify-center mb-6 mx-auto group-hover:scale-110 group-hover:rotate-12 transition-all duration-300"
                   style={{ backgroundColor: `${method.color}15` }}
                 >
                   <method.icon className="w-7 h-7" style={{ color: method.color }} strokeWidth={1.5} />
-                </motion.div>
+                </div>
                 <h3 className="font-serif text-xl font-semibold text-[#2d2d2d] mb-2">
                   {method.title}
                 </h3>
                 <p className="text-[#5a5a5a] mb-4 text-sm">{method.description}</p>
-                <motion.div
-                  className="inline-flex items-center gap-2 text-sm font-medium mx-auto"
+                <div
+                  className="inline-flex items-center gap-2 text-sm font-medium mx-auto group-hover:translate-x-1 transition-transform duration-300"
                   style={{ color: method.color }}
-                  whileHover={{ x: 5 }}
                 >
                   <span>{method.action}</span>
                   <Send className="w-4 h-4" strokeWidth={2} />
-                </motion.div>
+                </div>
               </div>
-            </motion.a>
+            </a>
           ))}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.6 }}
+        <div
+          ref={formRef}
           className="bg-gradient-to-br from-[#faf9f7] to-white rounded-3xl p-10 sm:p-12 shadow-lg border border-gray-100 text-center max-w-3xl mx-auto relative overflow-hidden"
         >
           <div className="absolute top-0 right-0 w-32 h-32 bg-[#c9a961]/5 rounded-full -mr-16 -mt-16" />
@@ -110,17 +133,15 @@ export default function ContactPage() {
               For collaborations or custom requests, you can also message us on Instagram.
             </p>
 
-            <motion.a
+            <a
               href="https://docs.google.com/forms/d/e/1FAIpQLSfUeywNNfn5m7wmEisZnwXeR7DKhxlZROSn6VJ2wnadGg-llw/viewform?usp=publish-editor"
               target="_blank"
               rel="noopener noreferrer"
-              whileHover={{ scale: 1.02, y: -2 }}
-              whileTap={{ scale: 0.98 }}
-              className="inline-flex items-center justify-center gap-2 px-10 py-4 bg-[#c9a961] text-white font-medium rounded-full shadow-md hover:shadow-lg transition-all"
+              className="inline-flex items-center justify-center gap-2 px-10 py-4 bg-[#c9a961] text-white font-medium rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300"
             >
               <span>Open Contact Form</span>
               <Send className="w-5 h-5" strokeWidth={2} />
-            </motion.a>
+            </a>
 
             <div className="mt-10 flex flex-wrap justify-center gap-8 text-[#5a5a5a] text-sm">
               <div className="flex items-center gap-2">
@@ -133,7 +154,7 @@ export default function ContactPage() {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
