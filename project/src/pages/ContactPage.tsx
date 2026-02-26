@@ -83,6 +83,12 @@ export default function ContactPage() {
           <p className="text-[#5a5a5a] text-base max-w-2xl mx-auto">
             Have a question or want to place a custom order? We'd love to hear from you
           </p>
+          
+          {/* Spotlight Anchor - Safe position near form */}
+          <div 
+            className="spotlight-anchor absolute right-8 sm:right-16 top-1/3 w-1 h-1 pointer-events-none" 
+            data-spotlight="contact"
+          />
         </div>
 
         <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16 max-w-3xl mx-auto">

@@ -130,6 +130,12 @@ export default function GalleryPage() {
           <p className="text-[#5a5a5a] text-base max-w-2xl mx-auto">
             Explore our collection of handcrafted creations
           </p>
+          
+          {/* Spotlight Anchor - Safe position top left */}
+          <div 
+            className="spotlight-anchor absolute left-8 sm:left-16 top-32 w-1 h-1 pointer-events-none" 
+            data-spotlight="gallery"
+          />
         </div>
 
         <div ref={gridRef} className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 mb-16">

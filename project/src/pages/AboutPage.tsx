@@ -100,6 +100,12 @@ export default function AboutPage() {
                 className="w-full h-[500px] object-cover hover:scale-105 transition-transform duration-700"
               />
             </div>
+            
+            {/* Spotlight Anchor - Safe position near image */}
+            <div 
+              className="spotlight-anchor absolute -right-8 top-1/2 -translate-y-1/2 w-1 h-1 pointer-events-none" 
+              data-spotlight="about"
+            />
           </div>
 
           <div ref={textRef} className="space-y-6">
