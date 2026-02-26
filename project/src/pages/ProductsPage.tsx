@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageCircle, Sparkles } from 'lucide-react';
+import { Instagram, Sparkles } from 'lucide-react';
 import * as React from 'react';
 
 interface Product {
@@ -83,10 +83,10 @@ export default function ProductsPage() {
       ? products
       : products.filter((p) => p.category === selectedCategory);
 
-  const handleWhatsAppMessage = (productName: string) => {
-    const message = `Hi! I'm interested in ordering: ${productName}`;
-    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
+  const handleInstagramDM = (productName: string) => {
+    // Direct link to Instagram DM
+    const instagramUrl = 'https://www.instagram.com/spark_soul.24';
+    window.open(instagramUrl, '_blank');
   };
 
   return (
@@ -191,16 +191,16 @@ export default function ProductsPage() {
                     </p>
 
                     <motion.button
-                      onClick={() => handleWhatsAppMessage(product.name)}
-                      className="w-full flex items-center justify-center gap-2 px-5 py-3 bg-[#25D366] text-white rounded-xl font-medium shadow-sm text-sm"
+                      onClick={() => handleInstagramDM(product.name)}
+                      className="w-full flex items-center justify-center gap-2 px-5 py-3 bg-gradient-to-r from-[#E1306C] to-[#C13584] text-white rounded-xl font-medium shadow-sm text-sm"
                       whileHover={{
                         scale: 1.02,
-                        boxShadow: '0 8px 20px rgba(37, 211, 102, 0.3)',
+                        boxShadow: '0 8px 20px rgba(225, 48, 108, 0.3)',
                       }}
                       whileTap={{ scale: 0.98 }}
                     >
-                      <MessageCircle className="w-4 h-4" strokeWidth={2} />
-                      <span>Message on WhatsApp</span>
+                      <Instagram className="w-4 h-4" strokeWidth={2} />
+                      <span>Message on Instagram</span>
                     </motion.button>
                   </div>
                 </div>

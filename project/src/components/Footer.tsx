@@ -38,11 +38,11 @@ export default function Footer({ onNavigate }: FooterProps) {
           >
             <div className="flex items-center justify-center md:justify-start gap-2 mb-4">
               <Sparkles className="w-5 h-5 text-[#c9a961]" strokeWidth={1.5} />
-              <h3 className="font-serif text-2xl font-semibold text-[#2d2d2d]">
+              <h3 className="font-sans text-xl font-semibold text-[#2d2d2d]">
                 Spark Soul
               </h3>
             </div>
-            <p className="text-[#5a5a5a] text-sm leading-relaxed">
+            <p className="text-[#5a5a5a] text-sm leading-relaxed font-sans">
               Handcrafted with love. Creating unique jewelry and meaningful gifts for every special moment.
             </p>
           </motion.div>
@@ -55,13 +55,13 @@ export default function Footer({ onNavigate }: FooterProps) {
             transition={{ delay: 0.1 }}
             className="text-center"
           >
-            <h4 className="font-serif text-lg font-semibold text-[#2d2d2d] mb-4">Quick Links</h4>
+            <h4 className="font-sans text-base font-semibold text-[#2d2d2d] mb-4">Quick Links</h4>
             <ul className="space-y-2">
               {quickLinks.map((item) => (
                 <li key={item}>
                   <button
                     onClick={() => onNavigate(item.toLowerCase())}
-                    className="text-[#5a5a5a] hover:text-[#c9a961] transition-colors text-sm"
+                    className="text-[#5a5a5a] hover:text-[#c9a961] transition-colors text-sm font-sans"
                   >
                     {item}
                   </button>
@@ -78,7 +78,7 @@ export default function Footer({ onNavigate }: FooterProps) {
             transition={{ delay: 0.2 }}
             className="text-center md:text-right"
           >
-            <h4 className="font-serif text-lg font-semibold text-[#2d2d2d] mb-4">Connect With Us</h4>
+            <h4 className="font-sans text-base font-semibold text-[#2d2d2d] mb-4">Connect With Us</h4>
             <div className="flex justify-center md:justify-end gap-4 mb-4">
               {socialLinks.map((social) => (
                 <motion.a
@@ -95,7 +95,7 @@ export default function Footer({ onNavigate }: FooterProps) {
                 </motion.a>
               ))}
             </div>
-            <p className="text-sm text-[#5a5a5a]">@spark_soul.24</p>
+            <p className="text-sm text-[#5a5a5a] font-sans">@spark_soul.24</p>
           </motion.div>
         </div>
 
@@ -110,7 +110,7 @@ export default function Footer({ onNavigate }: FooterProps) {
             href="https://svermaportfolio.netlify.app/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm text-[#5a5a5a] hover:text-[#c9a961] transition-colors inline-block"
+            className="text-sm text-[#5a5a5a] hover:text-[#c9a961] transition-colors inline-block font-sans"
           >
             © {currentYear} Sv_desizns. All rights reserved. Designed By Sourav Verma
           </a>
