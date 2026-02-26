@@ -148,7 +148,7 @@ export default function ProductsPage() {
     <section
       id="products"
       ref={sectionRef}
-      className="py-24 bg-white"
+      className="relative py-24 bg-white"
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="text-center mb-20">
@@ -228,6 +228,12 @@ export default function ProductsPage() {
             </div>
           ))}
         </div>
+
+        {/* Spotlight Anchor - Safe position on right side near heading */}
+        <div 
+          className="spotlight-anchor absolute right-8 sm:right-16 lg:right-24 top-32 w-1 h-1 pointer-events-none" 
+          data-spotlight="products"
+        />
       </div>
     </section>
   );

@@ -79,7 +79,7 @@ export default function AboutPage() {
   ];
 
   return (
-    <section id="about" ref={sectionRef} className="py-24 bg-[#faf9f7]">
+    <section id="about" ref={sectionRef} className="relative py-24 bg-[#faf9f7]">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="text-center mb-20">
           <div className="mb-6">
@@ -129,7 +129,7 @@ export default function AboutPage() {
         </div>
 
         <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {features.map((feature, index) => (
+          {features.map((feature) => (
             <div
               key={feature.title}
               className="group"
@@ -148,6 +148,12 @@ export default function AboutPage() {
             </div>
           ))}
         </div>
+
+        {/* Spotlight Anchor - Safe position on left side near image */}
+        <div 
+          className="spotlight-anchor absolute left-8 sm:left-16 lg:left-24 top-1/3 w-1 h-1 pointer-events-none" 
+          data-spotlight="about"
+        />
       </div>
     </section>
   );

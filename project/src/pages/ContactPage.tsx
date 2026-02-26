@@ -69,7 +69,7 @@ export default function ContactPage() {
     <section
       id="contact"
       ref={sectionRef}
-      className="py-24 bg-white"
+      className="relative py-24 bg-white"
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="text-center mb-20">
@@ -155,6 +155,12 @@ export default function ContactPage() {
             </div>
           </div>
         </div>
+
+        {/* Spotlight Anchor - Safe position near CTA */}
+        <div 
+          className="spotlight-anchor absolute right-8 sm:right-16 lg:right-24 bottom-32 w-1 h-1 pointer-events-none" 
+          data-spotlight="contact"
+        />
       </div>
     </section>
   );

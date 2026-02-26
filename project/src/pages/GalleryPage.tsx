@@ -117,7 +117,7 @@ export default function GalleryPage() {
   }, []);
 
   return (
-    <section id="gallery" ref={sectionRef} className="py-24 bg-[#faf9f7]">
+    <section id="gallery" ref={sectionRef} className="relative py-24 bg-[#faf9f7]">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="text-center mb-20">
           <div className="mb-6">
@@ -170,6 +170,12 @@ export default function GalleryPage() {
             <span>Follow us on Instagram</span>
           </a>
         </div>
+
+        {/* Spotlight Anchor - Safe position on top left */}
+        <div 
+          className="spotlight-anchor absolute left-8 sm:left-16 lg:left-24 top-24 w-1 h-1 pointer-events-none" 
+          data-spotlight="gallery"
+        />
       </div>
 
       {/* Lightbox Modal */}
