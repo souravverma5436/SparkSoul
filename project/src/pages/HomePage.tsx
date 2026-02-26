@@ -8,9 +8,22 @@ interface HomePageProps {
 
 export default function HomePage({ onNavigate }: HomePageProps) {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isMobile, setIsMobile] = useState(false);
 
-  // Track mouse for parallax effect
+  // Detect mobile device
   useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Track mouse for parallax effect (desktop only)
+  useEffect(() => {
+    if (isMobile) return;
+    
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({
         x: (e.clientX / window.innerWidth - 0.5) * 20,
@@ -19,7 +32,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
     };
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+  }, [isMobile]);
 
   // Product images for carousel
   const productImages = [
@@ -37,82 +50,114 @@ export default function HomePage({ onNavigate }: HomePageProps) {
     <section
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
-      style={{ perspective: '1000px' }}
+      style={{ perspective: isMobile ? 'none' : '1000px' }}
     >
-      {/* 3D Rotating Product Carousel Background */}
+      {/* 3D Rotating Product Carousel Background - Simplified on mobile */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-br from-black/95 via-[#2d2d2d]/90 to-black/95" />
         
-        {/* Carousel Container */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <motion.div
-            className="relative w-full h-full"
-            style={{
-              transformStyle: 'preserve-3d',
-            }}
-            animate={{
-              rotateY: [0, 360],
-            }}
-            transition={{
-              duration: 40,
-              repeat: Infinity,
-              ease: 'linear',
-            }}
-          >
-            {productImages.map((image, index) => {
-              const angle = (360 / productImages.length) * index;
-              const radius = 600;
-              
-              return (
-                <motion.div
-                  key={index}
-                  className="absolute top-1/2 left-1/2"
-                  style={{
-                    transform: `translate(-50%, -50%) rotateY(${angle}deg) translateZ(${radius}px)`,
-                    transformStyle: 'preserve-3d',
-                  }}
-                >
+        {/* Carousel Container - Disabled on mobile for performance */}
+        {!isMobile && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <motion.div
+              className="relative w-full h-full"
+              style={{
+                transformStyle: 'preserve-3d',
+              }}
+              animate={{
+                rotateY: [0, 360],
+              }}
+              transition={{
+                duration: 40,
+                repeat: Infinity,
+                ease: 'linear',
+              }}
+            >
+              {productImages.map((image, index) => {
+                const angle = (360 / productImages.length) * index;
+                const radius = 600;
+                
+                return (
                   <motion.div
-                    className="w-64 h-64 rounded-2xl overflow-hidden shadow-2xl border-4 border-[#c9a961]/30"
-                    whileHover={{ scale: 1.1 }}
+                    key={index}
+                    className="absolute top-1/2 left-1/2"
                     style={{
-                      boxShadow: '0 20px 60px rgba(201, 169, 97, 0.3), 0 0 40px rgba(201, 169, 97, 0.2)',
+                      transform: `translate(-50%, -50%) rotateY(${angle}deg) translateZ(${radius}px)`,
+                      transformStyle: 'preserve-3d',
                     }}
                   >
-                    <img
-                      src={image}
-                      alt={`Product ${index + 1}`}
-                      className="w-full h-full object-cover"
+                    <motion.div
+                      className="w-64 h-64 rounded-2xl overflow-hidden shadow-2xl border-4 border-[#c9a961]/30"
+                      whileHover={{ scale: 1.1 }}
                       style={{
-                        transform: `rotateY(${-angle}deg)`,
+                        boxShadow: '0 20px 60px rgba(201, 169, 97, 0.3), 0 0 40px rgba(201, 169, 97, 0.2)',
                       }}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                    >
+                      <img
+                        src={image}
+                        alt={`Product ${index + 1}`}
+                        className="w-full h-full object-cover"
+                        style={{
+                          transform: `rotateY(${-angle}deg)`,
+                        }}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                    </motion.div>
                   </motion.div>
-                </motion.div>
-              );
-            })}
-          </motion.div>
-        </div>
+                );
+              })}
+            </motion.div>
+          </div>
+        )}
+
+        {/* Mobile: Simple sliding background images */}
+        {isMobile && (
+          <div className="absolute inset-0 flex items-center justify-center opacity-20">
+            <motion.div
+              className="flex gap-4"
+              animate={{
+                x: [0, -1000],
+              }}
+              transition={{
+                duration: 30,
+                repeat: Infinity,
+                ease: 'linear',
+              }}
+            >
+              {[...productImages, ...productImages].map((image, index) => (
+                <div
+                  key={index}
+                  className="w-48 h-48 rounded-xl overflow-hidden flex-shrink-0 border-2 border-[#c9a961]/20"
+                >
+                  <img
+                    src={image}
+                    alt={`Product ${index + 1}`}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              ))}
+            </motion.div>
+          </div>
+        )}
 
         {/* Overlay to ensure text readability */}
         <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
       </div>
 
-      {/* Animated Grid Pattern with 3D effect */}
+      {/* Animated Grid Pattern with 3D effect - Reduced on mobile */}
       <motion.div
-        className="absolute inset-0 z-0 opacity-20"
+        className="absolute inset-0 z-0 opacity-10 md:opacity-20"
         style={{
           backgroundImage: `linear-gradient(rgba(201, 169, 97, 0.2) 2px, transparent 2px),
                            linear-gradient(90deg, rgba(201, 169, 97, 0.2) 2px, transparent 2px)`,
           backgroundSize: '60px 60px',
-          transform: `translate(${mousePosition.x}px, ${mousePosition.y}px)`,
+          transform: isMobile ? 'none' : `translate(${mousePosition.x}px, ${mousePosition.y}px)`,
         }}
       />
 
-      {/* Subtle Floating Sparkles */}
+      {/* Subtle Floating Sparkles - Fewer on mobile */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        {[...Array(8)].map((_, i) => (
+        {[...Array(isMobile ? 4 : 8)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute"
@@ -132,17 +177,17 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               ease: 'easeInOut',
             }}
           >
-            <Star className="w-3 h-3 text-[#c9a961] fill-[#c9a961] drop-shadow-[0_0_8px_rgba(201,169,97,0.6)]" />
+            <Star className="w-2 h-2 md:w-3 md:h-3 text-[#c9a961] fill-[#c9a961] drop-shadow-[0_0_8px_rgba(201,169,97,0.6)]" />
           </motion.div>
         ))}
       </div>
 
-      {/* Main Content with 3D Transform */}
+      {/* Main Content with 3D Transform - Disabled on mobile */}
       <motion.div
-        className="relative z-10 text-center px-6 sm:px-8 lg:px-12 max-w-6xl mx-auto"
+        className="relative z-10 text-center px-4 sm:px-6 lg:px-12 max-w-6xl mx-auto"
         style={{
-          transform: `rotateX(${mousePosition.y * 0.02}deg) rotateY(${mousePosition.x * 0.02}deg)`,
-          transformStyle: 'preserve-3d',
+          transform: isMobile ? 'none' : `rotateX(${mousePosition.y * 0.02}deg) rotateY(${mousePosition.x * 0.02}deg)`,
+          transformStyle: isMobile ? 'flat' : 'preserve-3d',
         }}
       >
         {/* Decorative Top Line with 3D effect */}
@@ -181,16 +226,16 @@ export default function HomePage({ onNavigate }: HomePageProps) {
           />
         </motion.div>
 
-        {/* Main Headline with 3D depth */}
+        {/* Main Headline with 3D depth - Responsive sizing */}
         <motion.h1
-          className="font-serif text-5xl sm:text-6xl lg:text-8xl font-bold text-white mb-6 leading-tight tracking-tight"
-          initial={{ opacity: 0, y: 50, z: -100 }}
+          className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold text-white mb-4 sm:mb-6 leading-tight tracking-tight px-2"
+          initial={{ opacity: 0, y: 50, z: isMobile ? 0 : -100 }}
           animate={{ opacity: 1, y: 0, z: 0 }}
           transition={{ duration: 1, delay: 0.4 }}
           style={{
             textShadow: '0 4px 20px rgba(0, 0, 0, 0.8), 0 0 40px rgba(201, 169, 97, 0.4), 0 10px 30px rgba(0, 0, 0, 0.5)',
-            transform: 'translateZ(60px)',
-            transformStyle: 'preserve-3d',
+            transform: isMobile ? 'none' : 'translateZ(60px)',
+            transformStyle: isMobile ? 'flat' : 'preserve-3d',
           }}
         >
           <motion.span
@@ -208,29 +253,29 @@ export default function HomePage({ onNavigate }: HomePageProps) {
           </motion.span>
         </motion.h1>
 
-        {/* Subtitle with 3D positioning */}
+        {/* Subtitle with 3D positioning - Responsive */}
         <motion.div
-          className="mb-4"
-          initial={{ opacity: 0, z: -50 }}
+          className="mb-3 sm:mb-4"
+          initial={{ opacity: 0, z: isMobile ? 0 : -50 }}
           animate={{ opacity: 1, z: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          style={{ transform: 'translateZ(40px)' }}
+          style={{ transform: isMobile ? 'none' : 'translateZ(40px)' }}
         >
-          <p className="text-lg sm:text-xl text-white/95 font-light tracking-[0.2em] uppercase">
+          <p className="text-base sm:text-lg lg:text-xl text-white/95 font-light tracking-[0.15em] sm:tracking-[0.2em] uppercase px-2">
             Custom Jewelry & Hampers by
           </p>
         </motion.div>
 
-        {/* Brand Name with 3D glow */}
+        {/* Brand Name with 3D glow - Responsive */}
         <motion.div
-          className="mb-14"
-          initial={{ opacity: 0, scale: 0.8, z: -80 }}
+          className="mb-10 sm:mb-14"
+          initial={{ opacity: 0, scale: 0.8, z: isMobile ? 0 : -80 }}
           animate={{ opacity: 1, scale: 1, z: 0 }}
           transition={{ duration: 0.8, delay: 0.7 }}
-          style={{ transform: 'translateZ(80px)' }}
+          style={{ transform: isMobile ? 'none' : 'translateZ(80px)' }}
         >
           <motion.p
-            className="font-serif text-4xl sm:text-5xl lg:text-6xl text-[#c9a961] font-bold tracking-wide"
+            className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[#c9a961] font-bold tracking-wide px-2"
             style={{
               textShadow: '0 0 30px rgba(201, 169, 97, 1), 0 0 60px rgba(201, 169, 97, 0.6), 0 10px 40px rgba(0, 0, 0, 0.5)',
             }}
@@ -247,21 +292,21 @@ export default function HomePage({ onNavigate }: HomePageProps) {
           </motion.p>
         </motion.div>
 
-        {/* CTA Buttons with 3D lift */}
+        {/* CTA Buttons with 3D lift - Responsive */}
         <motion.div
-          className="flex flex-col sm:flex-row gap-5 justify-center items-center mb-20"
-          initial={{ opacity: 0, y: 30, z: -60 }}
+          className="flex flex-col sm:flex-row gap-4 sm:gap-5 justify-center items-center mb-16 sm:mb-20 px-4"
+          initial={{ opacity: 0, y: 30, z: isMobile ? 0 : -60 }}
           animate={{ opacity: 1, y: 0, z: 0 }}
           transition={{ duration: 0.8, delay: 0.9 }}
-          style={{ transform: 'translateZ(50px)', transformStyle: 'preserve-3d' }}
+          style={{ transform: isMobile ? 'none' : 'translateZ(50px)', transformStyle: isMobile ? 'flat' : 'preserve-3d' }}
         >
           <motion.button
             onClick={() => onNavigate('products')}
-            className="relative px-12 py-5 bg-gradient-to-r from-[#c9a961] to-[#d4b76e] text-white font-semibold rounded-full shadow-2xl overflow-hidden group text-lg"
-            whileHover={{ scale: 1.1, z: 20, rotateX: 5 }}
+            className="w-full sm:w-auto relative px-10 sm:px-12 py-4 sm:py-5 bg-gradient-to-r from-[#c9a961] to-[#d4b76e] text-white font-semibold rounded-full shadow-2xl overflow-hidden group text-base sm:text-lg"
+            whileHover={{ scale: isMobile ? 1 : 1.1, z: isMobile ? 0 : 20, rotateX: isMobile ? 0 : 5 }}
             whileTap={{ scale: 0.95 }}
             style={{
-              transformStyle: 'preserve-3d',
+              transformStyle: isMobile ? 'flat' : 'preserve-3d',
               boxShadow: '0 20px 40px rgba(201, 169, 97, 0.4), 0 10px 20px rgba(0, 0, 0, 0.3)',
             }}
           >
@@ -271,7 +316,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               whileHover={{ x: 0 }}
               transition={{ duration: 0.4 }}
             />
-            <span className="relative z-10 tracking-wider flex items-center gap-2">
+            <span className="relative z-10 tracking-wider flex items-center justify-center gap-2">
               Shop Now
               <motion.span
                 animate={{ x: [0, 5, 0] }}
@@ -284,11 +329,11 @@ export default function HomePage({ onNavigate }: HomePageProps) {
 
           <motion.button
             onClick={() => onNavigate('about')}
-            className="relative px-12 py-5 border-2 border-white/80 text-white font-semibold rounded-full backdrop-blur-md bg-white/5 shadow-xl overflow-hidden group text-lg"
-            whileHover={{ scale: 1.1, z: 20, rotateX: 5 }}
+            className="w-full sm:w-auto relative px-10 sm:px-12 py-4 sm:py-5 border-2 border-white/80 text-white font-semibold rounded-full backdrop-blur-md bg-white/5 shadow-xl overflow-hidden group text-base sm:text-lg"
+            whileHover={{ scale: isMobile ? 1 : 1.1, z: isMobile ? 0 : 20, rotateX: isMobile ? 0 : 5 }}
             whileTap={{ scale: 0.95 }}
             style={{
-              transformStyle: 'preserve-3d',
+              transformStyle: isMobile ? 'flat' : 'preserve-3d',
               boxShadow: '0 20px 40px rgba(255, 255, 255, 0.2), 0 10px 20px rgba(0, 0, 0, 0.3)',
             }}
           >

@@ -82,8 +82,8 @@ function App() {
             transition={{ duration: 0.8, ease: 'easeInOut' }}
             className="fixed inset-0 bg-gradient-to-br from-[#2d2d2d] via-[#1a1a1a] to-black z-50 flex items-center justify-center overflow-hidden"
           >
-            {/* Animated Background Pattern */}
-            <div className="absolute inset-0 opacity-10">
+            {/* Animated Background Pattern - Reduced on mobile */}
+            <div className="absolute inset-0 opacity-5 sm:opacity-10">
               <motion.div
                 className="absolute inset-0"
                 style={{
@@ -102,9 +102,9 @@ function App() {
               />
             </div>
 
-            {/* Floating Sparkles */}
+            {/* Floating Sparkles - Fewer on mobile */}
             <div className="absolute inset-0 pointer-events-none">
-              {[...Array(12)].map((_, i) => (
+              {[...Array(6)].map((_, i) => (
                 <motion.div
                   key={i}
                   className="absolute w-1 h-1 bg-[#c9a961] rounded-full"
@@ -126,13 +126,13 @@ function App() {
               ))}
             </div>
 
-            <div className="text-center relative z-10 px-6 max-w-2xl">
+            <div className="text-center relative z-10 px-4 sm:px-6 max-w-2xl w-full">
               {/* Logo/Icon with Elegant Animation */}
               <motion.div
                 initial={{ scale: 0, rotate: -180 }}
                 animate={{ scale: 1, rotate: 0 }}
                 transition={{ duration: 1, ease: 'easeOut' }}
-                className="mb-8"
+                className="mb-6 sm:mb-8"
               >
                 <motion.div
                   animate={{
@@ -145,7 +145,7 @@ function App() {
                   }}
                 >
                   <svg
-                    className="w-24 h-24 mx-auto"
+                    className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 mx-auto"
                     viewBox="0 0 24 24"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -161,15 +161,15 @@ function App() {
                 </motion.div>
               </motion.div>
 
-              {/* Brand Name with Stagger Animation */}
+              {/* Brand Name with Responsive Sizing */}
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.5 }}
-                className="mb-4"
+                className="mb-3 sm:mb-4"
               >
                 <h1 
-                  className="font-serif text-6xl sm:text-7xl font-bold text-[#c9a961] mb-2"
+                  className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-[#c9a961] mb-2"
                   style={{
                     textShadow: '0 0 40px rgba(201, 169, 97, 0.5), 0 4px 20px rgba(0, 0, 0, 0.8)',
                   }}
@@ -178,22 +178,22 @@ function App() {
                 </h1>
               </motion.div>
 
-              {/* Tagline */}
+              {/* Tagline - Responsive */}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, delay: 1 }}
-                className="mb-8"
+                className="mb-6 sm:mb-8"
               >
-                <p className="text-white/80 text-lg sm:text-xl font-light tracking-[0.3em] uppercase mb-2">
+                <p className="text-white/80 text-base sm:text-lg lg:text-xl font-light tracking-[0.2em] sm:tracking-[0.3em] uppercase mb-2">
                   Handcrafted Elegance
                 </p>
-                <div className="flex items-center justify-center gap-3 text-white/60 text-sm">
+                <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-white/60 text-xs sm:text-sm px-4">
                   <span>✨ Jewelry</span>
                   <span className="w-1 h-1 bg-[#c9a961] rounded-full"></span>
                   <span>🎁 Hampers</span>
                   <span className="w-1 h-1 bg-[#c9a961] rounded-full"></span>
-                  <span>💎 Custom Gifts</span>
+                  <span>💎 Gifts</span>
                 </div>
               </motion.div>
 
@@ -202,7 +202,7 @@ function App() {
                 initial={{ width: 0 }}
                 animate={{ width: '100%' }}
                 transition={{ duration: 1.5, delay: 1.3 }}
-                className="h-px bg-gradient-to-r from-transparent via-[#c9a961] to-transparent mb-8 mx-auto max-w-md"
+                className="h-px bg-gradient-to-r from-transparent via-[#c9a961] to-transparent mb-6 sm:mb-8 mx-auto max-w-xs sm:max-w-md"
               />
 
               {/* Loading Progress Bar */}
@@ -210,9 +210,9 @@ function App() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1.5 }}
-                className="mb-4"
+                className="mb-3 sm:mb-4"
               >
-                <div className="relative w-64 h-1 bg-white/10 rounded-full mx-auto overflow-hidden">
+                <div className="relative w-48 sm:w-64 h-1 bg-white/10 rounded-full mx-auto overflow-hidden">
                   <motion.div
                     className="absolute inset-y-0 left-0 bg-gradient-to-r from-[#c9a961] to-[#d4b76e] rounded-full"
                     style={{ width: `${loadingProgress}%` }}
@@ -237,37 +237,37 @@ function App() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1.8 }}
-                className="text-white/50 text-sm font-light tracking-wider"
+                className="text-white/50 text-xs sm:text-sm font-light tracking-wider"
               >
                 Preparing your experience...
               </motion.p>
 
-              {/* Subtitle Quote */}
+              {/* Subtitle Quote - Hidden on very small screens */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 2.2 }}
-                className="mt-12"
+                className="mt-8 sm:mt-12 hidden sm:block"
               >
-                <p className="text-white/40 text-sm italic font-light">
+                <p className="text-white/40 text-xs sm:text-sm italic font-light">
                   "Where every piece tells a story"
                 </p>
               </motion.div>
             </div>
 
-            {/* Bottom Decorative Element */}
+            {/* Bottom Decorative Element - Hidden on mobile */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 2.5 }}
-              className="absolute bottom-12 left-1/2 transform -translate-x-1/2"
+              className="absolute bottom-8 sm:bottom-12 left-1/2 transform -translate-x-1/2 hidden sm:block"
             >
               <motion.div
                 animate={{ y: [0, 10, 0] }}
                 transition={{ duration: 2, repeat: Infinity }}
                 className="text-[#c9a961]/50"
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
                 </svg>
               </motion.div>
