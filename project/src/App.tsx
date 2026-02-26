@@ -113,7 +113,6 @@ function App() {
           transition={{ duration: 0.6 }}
         >
           <Navbar activeSection={activeSection} onNavigate={handleNavigate} />
-          <FloatingRing />
           <main>
             <HomePage onNavigate={handleNavigate} />
             <AboutPage />

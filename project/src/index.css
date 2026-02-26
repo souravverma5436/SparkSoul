@@ -140,16 +140,6 @@ body {
   animation: shimmer 3s infinite;
 }
 
-/* Shimmer move for ring */
-@keyframes shimmerMove {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-}
-
 /* Lightbox animations */
 @keyframes fadeIn {
   from {
